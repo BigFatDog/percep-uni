@@ -21,8 +21,8 @@ select colors with a preset and hcl selector
 
 <img alt="HCL selector" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/hcl-selector.png"/>
 
-<br/>
 A network of colors of [猪熊佳子 KEIKO INOKUMA](https://twitter.com/inokeko1): 
+<br/>
 | <img alt="Sining in the forest" height="260"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/singing-in-the-forset.jpg"/> | <img alt="force layout of keiko" height="260"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/keiko.png" /> |
 | --- | --- |
 

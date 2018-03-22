@@ -23,9 +23,8 @@ select colors with a preset and hcl selector
 
 <br/>
 A network of colors of [猪熊佳子 KEIKO INOKUMA](https://twitter.com/inokeko1): 
+| <img alt="Sining in the forest" height="260"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/singing-in-the-forset.jpg"/> | <img alt="force layout of keiko" height="260"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/keiko.png" /> |
 | --- | --- |
-| <img alt="Sining in the forest"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/singing-in-the-forset.jpg"/> | <img alt="force layout of keiko" height="260"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/keiko.png" />
- |
 
 <br/>
 sort sub colorspace by hue and display as rect tiles.

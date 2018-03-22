@@ -1,6 +1,6 @@
-# percep-uni
+# percep-uni *Perceptual Uniformity*
 
-Perceptual Uniformity. Generate and refine perceptual uniform colors. This library can be used in browser as well as on node server.
+Generate and refine perceptual uniform colors. This library can be used in browser as well as on node server.
 
 ## Samples
 

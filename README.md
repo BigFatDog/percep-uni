@@ -1,5 +1,3 @@
-# DOCUMENTATION IS IN CONSTRUCTION
-
 # percep-uni
 
 Perceptual Uniformity. Generate and refine perceptual uniform colors. This library can be used in browser as well as on node server.
@@ -12,6 +10,9 @@ Each topic node is renderd with a color from sub-colorspace
 
 <img alt="Stackoverflow" height="300" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/stackoverflow.png"/>
 
+### A network of colors of [猪熊佳子 KEIKO INOKUMA](https://twitter.com/inokeko1) 's painting. [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/keiko.html "Source")
+<img alt="Sining in the forest" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/singing-in-the-forset.jpg"/> <img alt="force layout of keiko" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/keiko.png" />
+
 ### Force Layout [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/force-layout.html "Source")
 A force layout (Force Atlas 2 is used) of 10 colors as well as each sub colorspaces. 
 
@@ -21,9 +22,6 @@ A force layout (Force Atlas 2 is used) of 10 colors as well as each sub colorspa
 
 <img alt="HCL selector" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/hcl-selector.png"/>
 
-### A network of colors of [猪熊佳子 KEIKO INOKUMA](https://twitter.com/inokeko1) 's painting. [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/keiko.html "Source")
-<img alt="Sining in the forest" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/singing-in-the-forset.jpg"/> <img alt="force layout of keiko" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/keiko.png" />
-
 ### sort sub colorspace by hue and display as rect tiles. [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/color-rects.html "Source")
 <img alt="Color Tiles" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/color-rects.png" />
 
@@ -31,9 +29,32 @@ A force layout (Force Atlas 2 is used) of 10 colors as well as each sub colorspa
 ## Tutorials and Concepts
 Please visit [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/)'s website for tutorial and concepts
 
+## Installation
 
+1. Install
 
-## Typical Usage
+```
+npm install percep-uni --save
+```
+
+2. ES6 Usage
+
+```
+import { generateColorPalette } from 'percep-uni';
+
+```
+
+## Development
+1. Clone repository
+2. Run commands
+```
+npm install         // install dependencies
+npm run dev         // view demos in web browser at localhost:3005
+npm run build       // build
+npm run test        // run tests only
+npm run test:cover  // run tests and view coverage report
+```
+## Typical Usage with Comments
 ```javascript
 import {
   reducePresetToHCLPalette,
@@ -73,31 +94,6 @@ const quickHandsOn = () => {
   const sortedByHue = sortPalette(primes.map(d => chroma.hex(d)), 'hue');
 };
 
-```
-## Installation
-
-1. Install
-
-```
-npm install percep-uni --save
-```
-
-2. ES6 Usage
-
-```
-import { generateColorPalette } from 'percep-uni';
-
-```
-
-## Development
-1. Clone repository
-2. Run commands
-```
-npm install         // install dependencies
-npm run dev         // view demos in web browser at localhost:3005
-npm run build       // build
-npm run test        // run tests only
-npm run test:cover  // run tests and view coverage report
 ```
 
 ## API

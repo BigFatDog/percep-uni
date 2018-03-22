@@ -224,22 +224,23 @@ Generates colors from color space. This is for internal use only for now
   } = config;
 ```
 
-## Credits
-- [IWantHue by Medialab](http://tools.medialab.sciences-po.fr/iwanthue/) for the awesome application
-- [OxFord InteractiveVis](https://github.com/oxfordinternetinstitute/InteractiveVis) for original twitter and stackoverflow visualizations
-
 # Motivation
 When we need to use categorical colors in data visualizations, [ColorBrewer](http://colorbrewer2.org/) helps to generate distinct/categorical colors and ensures the even distribution.
 But what if we want to get sub color-space from each single color of the categorical color scheme?
 
 It becomes an interesting idea to me as I draw a force graph with sigma.js or a ribbon chart to represent a network
 of employees of a company. Categorical colors are used to represent departments, i.e, groups of people. For each group, a set of sub-colorspace is generated to 
-represent employees' salary in a linear scale.
+represent employees' other attributes.
 
-This is possible with [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/). IWantHue is a standalone application other than a library, I studied IWantHue
+This is possible with [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/). IWantHue is a standalone application but not a library, I studied IWantHue
 and made this library: percep-uni. 
 
+ALL core algorithms come from [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/)
 Thanks to [medialab](http://tools.medialab.sciences-po.fr) team for creating the fun yet powerful IWantHue
+
+## Credits
+- [IWantHue by Medialab](http://tools.medialab.sciences-po.fr/iwanthue/) for the awesome application
+- [OxFord InteractiveVis](https://github.com/oxfordinternetinstitute/InteractiveVis) for original twitter and stackoverflow visualizations
 
 ## License
 

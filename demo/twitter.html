@@ -25,7 +25,7 @@
 <div id="test"></div>
 <script>
     $(document).ready(function () {
-        let palette = PercepUni.reduceToPalette(20, PercepUni.AllHcl, {
+        let palette = PercepUni.reducePresetToHCLPalette(20, PercepUni.AllHcl, {
             colorblind: false
         });
         let subspaceSamples = PercepUni.getSubColorSpace(palette, function (c) {

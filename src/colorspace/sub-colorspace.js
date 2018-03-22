@@ -1,5 +1,5 @@
-import { getColorDistance } from './palette-gen';
-import selectColorSpace from './select-colorspace';
+import { getColorDistance } from '../palette-gen';
+import selectColorSpace from './select';
 
 const getSubColorSpace = (
   colors,

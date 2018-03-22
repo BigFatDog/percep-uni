@@ -1,4 +1,4 @@
-import sampleColorSpace from './sample-colorspace';
+import sampleColorSpace from './sample';
 
 const selectColorSpace = _selector => {
   // Sample the color space (for monitoring)

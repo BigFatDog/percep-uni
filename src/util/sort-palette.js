@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 import { diffSort } from '../palette-gen';
-import sortRGB from './rgb-sort';
+import sortRGB from './sort-rgb';
 
 /**
  *

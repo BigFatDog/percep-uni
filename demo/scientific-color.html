@@ -38,7 +38,7 @@
             return array;
         }
 
-        let palette = PercepUni.reduceToPalette(10, PercepUni.FancyLight);
+        let palette = PercepUni.reducePresetToHCLPalette(10, PercepUni.FancyLight);
         let subspaceSamples = PercepUni.getSubColorSpace(palette, function (c) {
             return PercepUni.hclSelector(PercepUni.FancyLight, c.hcl);
         });

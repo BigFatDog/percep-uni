@@ -4,7 +4,7 @@ import getColorDistance from './get-color-distance';
 
 const range = n => [...Array(n).keys()];
 
-const generate = (colorsCount = 8, config) => {
+const generate = (colorsCount, config) => {
   const {
     selector = () => true,
     forceMode = false,

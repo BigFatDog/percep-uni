@@ -1,9 +1,16 @@
-import { reducePresetToHCLPalette, getSubColorSpace, hclSelector, IceCube } from '../src';
+import {
+    reducePresetToHCLPalette,
+    getSubColorSpace,
+    hclSelector,
+    IceCube
+} from '../src';
+
 import { strictEqual, ok } from 'assert';
 
 describe('Color Precision', () => {
   it('Ice Cube sub colorspace', () => {
       const palette = reducePresetToHCLPalette(6, IceCube);
+      console.log(palette);
       strictEqual(palette.length, 6);
       const sub = getSubColorSpace(palette, c=> hclSelector(IceCube, c.hcl));
 

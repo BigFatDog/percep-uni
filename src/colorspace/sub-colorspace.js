@@ -3,10 +3,10 @@ import selectColorSpace from './select';
 
 const getSubColorSpace = (
   colors,
-  _selector = ()=> true,
+  selector = () => true,
   distanceType = 'Default'
 ) => {
-  const subspaceSamples = selectColorSpace(_selector);
+  const subspaceSamples = selectColorSpace(selector);
 
   const matchings = colors.reduce((match, d) => {
     match[d.hex] = [];

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Keiko</title>
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default"></script>
+    <script src="lib/jquery-1.12.4.min.js"></script>
+    <script src="lib/d3.v4.min.js"></script>
+    <script src="lib/sigma/sigma.min.js"></script>
+    <script src="lib/chroma.min.js"></script>
+    <script src="lib/lodash.js"></script>
+    <script src="lib/sigma/plugins/sigma.layout.forceAtlas2.min.js"></script>
+    <script src="./percep-uni.standalone.js"></script>
+    <style>
+        body,html {
+            height: 100%;
+        }
+
+        #test {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="test"></div>
+<script>
+    $(document).ready(function () {
+        const swap = (array, a, b)=> {
+            let t = array[a];
+            array[a] = array[b];
+            array[b] = t;
+        }
+
+        // in-place O(n) shuffle,
+        const shuffle =(array)=> {
+            let m = array.length;
+
+            while(m > 0) {
+                let i = Math.floor(Math.random() * m--);
+                swap(array, m ,i);
+            }
+
+            return array;
+        }
+
+
+
+//        let palette = PercepUni.reduceToPalette(10, PercepUni.FancyLight);
+//        console.log(palette);
+
+        const _original20 = ['#528b6a'
+            ,'#91c095'
+            ,'#769b5d'
+            ,'#366e59'
+            ,'#60743d'
+            ,'#496f60'
+            ,'#a1cbae'
+            ,'#d1e0b0'
+            ,'#b9cb9b'
+            ,'#6ea779'
+            ,'#6c8f77'
+            ,'#b1d1cb'
+            ,'#a6c293'
+            ,'#89ad70'
+            ,'#8ab67c'
+            ,'#83a282'
+            ,'#a4d4a1'
+            ,'#c1e4b4'
+            ,'#3c9c6f'
+            ,'#6c744f'];
+
+        let palette = _original20.map(d=>{
+            let color = chroma(d);
+           return {
+               color: color,
+               hex: color.hex(),
+               hcl: color.hcl(),
+               lab: color.lab()
+           }
+        });
+
+
+        let subspaceSamples = PercepUni.getSubColorSpace(palette, function (c) {
+            return PercepUni.hclSelector(PercepUni.FancyLight, c.hcl);
+        });
+
+        let forceStopTimers = [];
+        // Clean old sigma instances if needed
+        for(sid in sigma.instances()){
+            let sInstance = sigma.instances()[sid]
+            sInstance.stopForceAtlas2()
+            sInstance.graph.clear()
+            sInstance.kill()
+        }
+        $('#test').empty()
+        forceStopTimers.forEach(function(t){
+            clearTimeout(t)
+        })
+
+        // INIT SIGMA
+        let s = new sigma({
+            renderers: [
+                {
+                    container: document.getElementById('test'),
+                    type: 'webgl'
+                }
+            ],
+            settings: {
+                // Labels:
+                font: "'Arial', sans-serif;",
+                defaultLabelColor: '#333',
+                defaultLabelSize: 16,
+                defaultLabelBGColor: '#fff',
+                defaultLabelHoverColor: '#000',
+                labelThreshold: 100,
+
+                // Edges
+                defaultEdgeType: 'line',
+                drawEdges: false,
+
+                maxNodeSize: 8,
+
+                mouseEnabled: false,
+                blockScroll: true,
+                minRatio: 1,
+                maxRatio: 1
+            }
+        });
+
+        // Mouse actions
+        s.bind('overnodes',function(e){
+            // Cursor: pointer for hovered nodes
+            $('#carto').addClass("nodehovered");    // Actually, the whole canvas has the property
+        });
+        s.bind('outnodes',function(e){
+            // Remove the pointer cursor on node out
+            $('#carto').removeClass("nodehovered");
+        });
+
+        // Building the graph
+        s.graph.clear();
+
+        for (let primary in subspaceSamples) {
+            const subColorspace = subspaceSamples[primary];
+
+            subColorspace.forEach(function(c){
+                let color = chroma.hex(c);
+                s.graph.addNode({
+                    id: color.hex(),
+                    x: 10 - 10 * (color.lab()[1] - 0.25 * color.lab()[0] - 0.3 * color.lab()[2]) ,
+                    y: 8 * (color.lab()[2] - 1.1 * color.lab()[0] + 0.1 * color.lab()[1]),
+                    size: 30 + (100 - color.lab()[0]),
+                    label: color.hex(),
+                    color: color.hex()
+                });
+            });
+        }
+
+
+
+
+        // Add some random edges
+        for(let times=0; times<2; times++){
+
+
+            for (let primary in subspaceSamples) {
+                let group = subspaceSamples[primary];
+                group = shuffle(group);
+                for(i=0; i<group.length; i++){
+                    let c1 = group[i];
+                    let c2 = group[(i+1)%group.length];
+                    s.graph.addEdge({id:times+"_"+c1+"_"+c2, source:c1, target:c2});
+                }
+            }
+
+        }
+
+        s.startForceAtlas2(
+            {
+                barnesHutOptimize: true,
+                slowDown: 1,
+                scalingRatio: 10,
+                strongGravityMode: true,
+                gravity: 0.1
+            }
+        );
+        forceStopTimers = [
+            // setTimeout(function(){s.configForceAtlas2({slowDown:4})}, 500),
+            setTimeout(function(){s.configForceAtlas2({slowDown:8})}, 1000),
+            setTimeout(function(){s.configForceAtlas2({slowDown:16})}, 1500),
+            setTimeout(function(){s.configForceAtlas2({slowDown:32})}, 2500),
+            setTimeout(function(){s.configForceAtlas2({slowDown:64})}, 5000),
+            setTimeout(function(){s.stopForceAtlas2()}, 15000)
+        ];
+//
+        s.refresh();
+        s.render();
+    });
+</script>
+</body>
+</html>

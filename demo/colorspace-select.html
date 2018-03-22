@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ColorSpace select</title>
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default"></script>
+    <script src="lib/jquery-1.12.4.min.js"></script>
+    <script src="lib/d3.v4.min.js"></script>
+    <script src="lib/sigma/sigma.min.js"></script>
+    <script src="lib/chroma.min.js"></script>
+    <script src="lib/sigma/plugins/sigma.layout.forceAtlas2.min.js"></script>
+    <script src="./percep-uni.standalone.js"></script>
+    <style>
+        body,html {
+            height: 100%;
+        }
+
+        #test {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="test"></div>
+<script>
+    $(document).ready(function () {
+
+        const subspaceSamples = PercepUni.selectColorSpace(function (c) {
+            return PercepUni.hclSelector(PercepUni.IceCube, c.hcl);
+        });
+
+
+        $('#test').empty()
+
+
+        // INIT SIGMA
+        let s = new sigma({
+            renderers: [
+                {
+                    container: document.getElementById('test'),
+                    type: 'webgl'
+                }
+            ],
+            settings: {
+                // Labels:
+                font: "'Arial', sans-serif;",
+                defaultLabelColor: '#333',
+                defaultLabelSize: 16,
+                defaultLabelBGColor: '#fff',
+                defaultLabelHoverColor: '#000',
+                labelThreshold: 100,
+
+                // Edges
+                defaultEdgeType: 'line',
+                drawEdges: false,
+
+                maxNodeSize: 8,
+
+                mouseEnabled: false,
+                blockScroll: true,
+                minRatio: 1,
+                maxRatio: 1
+            }
+        });
+
+        // Mouse actions
+        s.bind('overnodes',function(e){
+            // Cursor: pointer for hovered nodes
+            $('#carto').addClass("nodehovered");    // Actually, the whole canvas has the property
+        });
+        s.bind('outnodes',function(e){
+            // Remove the pointer cursor on node out
+            $('#carto').removeClass("nodehovered");
+        });
+
+        // Building the graph
+        s.graph.clear();
+
+        for (let color of subspaceSamples) {
+            s.graph.addNode({
+                id: color.hex(),
+                x: 10 - 10 * (color.lab()[1] - 0.25 * color.lab()[0] - 0.3 * color.lab()[2]) ,
+                y: 8 * (color.lab()[2] - 1.1 * color.lab()[0] + 0.1 * color.lab()[1]),
+                size: 30 + (100 - color.lab()[0]),
+                label: color.hex(),
+                color: color.hex()
+            });
+        }
+
+
+        s.refresh();
+        s.render();
+    });
+</script>
+</body>
+</html>

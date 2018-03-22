@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Color Sort</title>
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default"></script>
+    <script src="lib/jquery-1.12.4.min.js"></script>
+    <script src="lib/d3.v4.min.js"></script>
+    <script src="lib/lodash.js"></script>
+    <script src="lib/chroma.min.js"></script>
+    <script src="./percep-uni.standalone.js"></script>
+    <style>
+        body,html {
+            height: 100%;
+        }
+
+        .primary {
+
+        }
+
+        .sub {
+            display:inline-block;
+            width: 30px;
+            height: 30px;
+            margin-left: 1px;
+        }
+    </style>
+</head>
+<body>
+<script>
+    $(document).ready(function () {
+
+        let palette = PercepUni.reduceToPalette(20, PercepUni.AllHcl, {
+            useFV: false,
+            colorblind: false
+        });
+        let subspaceSamples = PercepUni.getSubColorSpace(palette, function (c) {
+            return PercepUni.hclSelector(PercepUni.AllHcl, c.hcl);
+        });
+
+        let primes = _.keys(subspaceSamples);
+        let sortedPrimes= PercepUni.sortPalette(primes.map((d)=>{
+            return chroma.hex(d);
+        }), 'difference');
+
+
+        let appended = d3.select('body').selectAll('.prime').data(sortedPrimes).enter().append('div').attr('class', 'prime');
+
+        appended.each(function(d, i) {
+            let group = subspaceSamples[d];
+
+            let sortedGroup = PercepUni.sortPalette(group.map((d)=>{
+                return chroma.hex(d);
+            }), 'rgb');
+            d3.select(this).selectAll('.sub').data(sortedGroup).enter().append('div').attr('class', 'sub')
+                .style('background-color', (d)=>{
+                return d.hex();
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

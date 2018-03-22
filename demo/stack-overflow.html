@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stackoverflow</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="lib/jquery-1.12.4.min.js"></script>
+    <script src="lib/lodash.js"></script>
+    <script src="lib/chroma.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="./lib/dagre.js"></script>
+    <script src="./lib/linkurious/sigma.js"></script>
+    <script src="./lib/linkurious/plugins.js"></script>
+    <script src="./percep-uni.standalone.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: #E5E5E5;
+        }
+
+        #container {
+            height: 800px;
+            left: 0;
+            margin: auto;
+        }
+
+        #control-pane {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container"></div>
+<div id="control-pane">
+    <h2>Graph Filters</h2>
+    <div class="form-group">
+        <label for="min-degree">Minimum Degree -<span id="min-degree-val">0</span></label>
+        0 <input class="form-control" id="min-degree" type="range" min="0" max="0" value="0"> <span
+            id="max-degree-value">0</span><br>
+        <label for"min-edge">Minimum Edge Weight -<span id="min-edge-val">0</span></label>
+        0 <input class="form-control" id="min-edge" step="0.01" type="range" min="0" max="0" value="0"> <span
+            id="max-edge-value">0</span><br>
+        <label for="node-type">Node Type</label>
+        <select class="form-control" id="node-type">
+            <option value="" selected>All Types</option>
+        </select>
+        <label for="node-category">Node Category</label>
+        <select class="form-control" id="node-category">
+            <option value="" selected>All Categories</option>
+        </select>
+        <label for="node-search">Text Search</label>
+        <input class="form-control" id="node-search" type="text">
+    </div>
+    <span class="line"></span>
+    <div class="btn-group" role="group">
+        <button id="reset-btn" class="btn btn-primary">Reset filters</button>
+    </div>
+
+</div>
+<script>
+    var s = new sigma({
+        container: 'container',
+        renderer: {
+            container: document.getElementById('container'),
+            type: 'webgl'
+        },
+        settings: {
+            minNodeSize: 3,
+            maxNodeSize: 14,
+            minEdgeSize: 0.1,
+            maxEdgeSize: 0.5,
+            verbose: true,
+            labelThreshold: 20,
+            defaultEdgeType: "curve",
+            defaultLabelColor: "#000",
+            defaultLabelSize: 14,
+            defaultLabelBGColor: "#ddd",
+            defaultHoverLabelBGColor: "#002147",
+            defaultLabelHoverColor: "#fff",
+            zoomMin: 0.05,
+            zoomMax: 1,
+            glyphScale: 0.7,
+            glyphFillColor: '#666',
+            glyphTextColor: 'white',
+            glyphStrokeColor: 'transparent',
+            glyphFont: 'FontAwesome',
+            glyphFontStyle: 'normal',
+            glyphTextThreshold: 6,
+            glyphThreshold: 3
+
+        }
+    });
+
+    sigma.parsers.gexf(
+        'assets/Graph1.gexf',
+        s,
+        function (s) {
+            // Initialize the Filter API
+            filter = sigma.plugins.filter(s);
+            $.getJSON('assets/MetaData.json',
+                function (data) {
+                    var icons = {
+                        'books': '\uF02d',
+                        'videos': '\uF03d',
+                        'blog': '\uF0f6',
+                        'topic': '\uF16c',
+                        'techprimer': '\uF0f6'
+                    }
+
+                    s.graph.nodes().forEach(function (n) {
+                        for (key in data[n.id]) {
+                            n.attributes[key] = data[n.id][key];
+
+                        }
+                        ;
+                        n.color = 'black';
+                        n.glyphs = [{
+                            position: 'top-left',
+                            content: icons[n.attributes['node type']],
+                        }];
+                    })
+
+
+                    updatePane(s.graph, filter);
+                }
+            );
+            function applyMinDegreeFilter(e) {
+                var v = e.target.value;
+                $('#min-degree-val').textContent = v;
+                filter
+                    .undo('min-degree')
+                    .nodesBy(
+                        function (n, options) {
+                            return this.graph.degree(n.id) >= options.minDegreeVal;
+                        }, {
+                            minDegreeVal: +v
+                        },
+                        'min-degree'
+                    )
+                    .apply();
+            };
+            function applyMinEdgeFilter(e) {
+                var v = e.target.value;
+                $('#min-edge-val').textContent = v;
+                filter
+                    .undo('min-edge')
+                    .edgesBy(
+                        function (n, options) {
+                            return n.weight > options.weight
+
+                        }, {
+                            weight: +v
+                        },
+                        'min-edge'
+                    )
+                    .apply();
+            };
+            function applyTypeFilter(e) {
+                var c = e.target[e.target.selectedIndex].value,
+                    nids = [];
+                filter
+                    .undo('node-type')
+                    .nodesBy(
+                        function (n, options) {
+                            if (!c.length || n.attributes[options.property] === c) {
+                                nids.push(n.id);
+                            }
+                            ;
+                            return !c.length || n.attributes[options.property] === c;
+                        }, {
+                            property: 'type'
+                        },
+                        'node-type'
+                    )
+                    .apply();
+
+            }
+
+            function applyCategoryFilter(e) {
+                var c = e.target[e.target.selectedIndex].value,
+                    nids = [];
+                filter
+                    .undo('node-category')
+                    .nodesBy(
+                        function (n, options) {
+                            if (n.attributes[options.property] === c) {
+                                nids.push(n.id);
+                            }
+                            ;
+                            return !c.length || n.attributes[options.property] === c;
+                        }, {
+                            property: 'category'
+                        },
+                        'node-category'
+                    )
+                    .apply();
+                locateNode(nids);
+            };
+            function applySearchFilter(e) {
+
+                var c = e.target.value,
+                    nids = [];
+                filter
+                    .undo('node-search')
+                    .nodesBy(
+                        function (n, options) {
+                            if (n.label.toLowerCase().search(c) > -1) {
+                                nids.push(n.id);
+                            }
+                            ;
+                            return n.label.toLowerCase().search(c) > -1;
+                        },
+                        {
+                            property: 'RAWR'
+                        },
+                        'node-search'
+                    )
+                    .apply();
+                locateNode(nids);
+            }
+
+            $('#min-degree').change(applyMinDegreeFilter);  // for Chrome and FF
+            $('#min-edge').change(applyMinEdgeFilter); // for IE10+, that sucks
+            $('#node-type').change(applyTypeFilter);
+            $('#node-category').change(applyCategoryFilter);
+            $('#node-search').change(applySearchFilter);
+
+            //s.renderers[0].glyphs();
+            var Rend = s.renderers[0];
+//            Rend.bind('render', function (e) {
+//                Rend.glyphs();
+//            })
+
+            var nodes = s.graph.nodes();
+
+            var labels = _.uniqBy(nodes, function(d){ return d.color}).map(function(d) {
+                return d.color;
+            });
+            var totalColors = labels.length;
+
+            const _original20 = ['#528b6a'
+                ,'#91c095'
+                ,'#769b5d'
+                ,'#366e59'
+                ,'#60743d'
+                ,'#496f60'
+                ,'#a1cbae'
+                ,'#d1e0b0'
+                ,'#b9cb9b'
+                ,'#6ea779'
+                ,'#6c8f77'
+                ,'#b1d1cb'
+                ,'#a6c293'
+                ,'#89ad70'
+                ,'#8ab67c'
+                ,'#83a282'
+                ,'#a4d4a1'
+                ,'#c1e4b4'
+                ,'#3c9c6f'
+                ,'#6c744f'];
+
+            let palette = _original20.map(d=>{
+                let color = chroma(d);
+                return {
+                    color: color,
+                    hex: color.hex(),
+                    hcl: color.hcl(),
+                    lab: color.lab()
+                }
+            });
+//            let palette = PercepUni.reduceToPalette(totalColors, PercepUni.Pimp);
+            let subspaceSamples = PercepUni.getSubColorSpace(palette, function (c) {
+                return PercepUni.hclSelector(PercepUni.Pimp, c.hcl);
+            });
+
+            function mapColor(d) {
+                var i = labels.indexOf(d.color);
+                var major = palette[i];
+
+                var group = subspaceSamples[major.hex];
+                return group[Math.ceil(Math.random() * group.length)]
+
+//                return major.hex;
+            }
+
+            s.graph.nodes().forEach(function (n) {
+                n.color = 'black'
+            });
+
+            s.refresh();
+
+            var hash = window.location.hash.replace('#', '');
+            if (hash != '') {
+                locateNode(hash)
+            }
+            ;
+
+            $('#zoomIn').on('click', function () {
+                console.log(Rend.camera.ratio)
+                if (Rend.camera.ratio > 0.5) {
+                    Rend.camera.ratio = Rend.camera.ratio - 0.5;
+                    s.refresh();
+                }
+                ;
+
+
+            })
+            $('#zoomOut').on('click', function () {
+                if (Rend.camera.ratio < 10) {
+                    Rend.camera.ratio = Rend.camera.ratio + 0.5;
+                    s.refresh();
+                }
+                ;
+
+            })
+            $('#zoomDef').on('click', function () {
+                console.log(Rend.camera.ratio)
+                Rend.camera.ratio = 1;
+                s.refresh();
+            })
+        });
+
+    var conf = {
+        animation: {
+            node: {
+                duration: 800
+            },
+            edge: {
+                duration: 800
+            },
+            center: {
+                duration: 300
+            }
+        },
+        //focusOut: true,
+    };
+    var locate = sigma.plugins.locate(s, conf);
+    if (!s.settings('autoRescale')) {
+        sigma.utils.zoomTo(s.camera, 0, 0, conf.zoomDef);
+    }
+    ;
+
+    function locateNode(nid) {
+        if (nid == '') {
+            locate.center(1);
+        }
+        else {
+            locate.nodes(nid);
+        }
+    };
+    function humanize(str) {
+        return str
+            .replace(/^[\s_]+|[\s_]+$/g, '')
+            .replace(/[_\s]+/g, ' ')
+            .replace(/^[a-z]/, function (m) {
+                return m.toUpperCase();
+            });
+    }
+    function updatePane(graph, filter) {
+        // get max degree
+        var maxDegree = 0,
+            maxEdge = 0,
+            types = {},
+            categories = {};
+        // read nodes
+        graph.nodes().forEach(function (n) {
+            maxDegree = Math.max(maxDegree, graph.degree(n.id));
+            types[n.attributes.type] = true;
+            if (n.attributes.category) {
+                categories[n.attributes.category] = true;
+            }
+
+        });
+        graph.edges().forEach(function (n) {
+            maxEdge = Math.max(maxEdge, n.weight)
+        });
+
+        // min degree
+        $('#min-degree')[0].max = maxDegree;
+        $('#max-degree-value').html(maxDegree);
+        $('#min-edge')[0].max = maxEdge;
+        $('#max-edge-value').html(maxEdge);
+
+        // node category
+        var nodecategoryElt = $('#node-type');
+        Object.keys(types).forEach(function (c) {
+            var optionElt = $("<option value=" + c + "></option>");
+            optionElt.append(humanize(c));
+            nodecategoryElt.append(optionElt);
+        });
+
+        var nodecategoryElt = $('#node-category');
+        Object.keys(categories).forEach(function (c) {
+            var optionElt = $("<option></option>");
+            optionElt.append(c);
+            nodecategoryElt.append(optionElt);
+        });
+
+
+        // reset button
+        $('#reset-btn').on("click", function (e) {
+            $('#min-degree').val(0);
+            $('#min-degree-val').html('0');
+            $('#node-type').selectedIndex = 0;
+            $('#node-category').selectedIndex = 0;
+            $('#min-edge').val(0);
+            $('#min-edge-val').html('0');
+            filter.undo().apply();
+        });
+
+
+    };
+
+</script>
+</body>
+</html>

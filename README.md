@@ -1,6 +1,5 @@
 # DOCUMENTATION IS IN CONSTRUCTION
 
-
 # percep-uni
 
 Perceptual Uniformity. Generate and refine perceptual uniform colors. This library can be used in browser as well as on node server.
@@ -20,6 +19,9 @@ Thanks to [medialab](http://tools.medialab.sciences-po.fr) team for creating the
 
 ## Tutorials and Concepts
 Please visit [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/)'s website for tutorial and concepts
+
+## Samples
+
 
 ## Typical Usage
 ```javascript
@@ -89,6 +91,18 @@ npm run test:cover  // run tests and view coverage report
 ```
 
 ## API
+
+* [reducePresetToHCLPalette](#_reducePresetToHCLPalette)
+* [reduceToPalette](#_reduceToPalette)
+* [getSubColorSpace](#_getSubColorSpace)
+* [selectColorSpace](#_selectColorSpace)
+* [sortPalette](#_sortPalette)
+* [hclSelector](#_hclSelector)
+* [getColorDistance](#_getColorDistance)
+* [preset](#_preset)
+* [generate](#_generate)
+
+
 ### Generate a color palette
 
 <a name="_reducePresetToHCLPalette" href="#_reducePresetToHCLPalette">#</a> <i>reducePresetToHCLPalette</i>(<i>count, preset, [opt]</i>) [<>](https://github.com/BigFatDog/percep-uni/blob/master/src/colorspace/reducer.js "Source")

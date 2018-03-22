@@ -5,29 +5,26 @@
 Perceptual Uniformity. Generate and refine perceptual uniform colors. This library can be used in browser as well as on node server.
 
 ## Samples
-<br/>
-Stackoverflow network. 5 disctinct colors are generated from ``Pimp`` preset. For each distinct color, sub colorspace has been generated containing 20 colors
+
+### Stackoverflow network. [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/stack-overflow.html "Source")
+5 disctinct colors are generated from ``Pimp`` preset. For each distinct color, sub colorspace has been generated containing 20 colors
 Each topic node is renderd with a color from sub-colorspace
 
 <img alt="Stackoverflow" height="300" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/stackoverflow.png"/>
 
-<br/>
+### Force Layout [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/force-layout.html "Source")
 A force layout (Force Atlas 2 is used) of 10 colors as well as each sub colorspaces. 
 
 <img alt="Force Layout" height="300" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/force-atlas-2.png"/>
 
-<br/>
-select colors with a preset and hcl selector
+### select colors with a preset and hcl selector [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/colorspace-select.html "Source")
 
 <img alt="HCL selector" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/hcl-selector.png"/>
 
-A network of colors of [猪熊佳子 KEIKO INOKUMA](https://twitter.com/inokeko1): 
-<br/>
+### A network of colors of [猪熊佳子 KEIKO INOKUMA](https://twitter.com/inokeko1) 's painting. [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/keiko.html "Source")
 <img alt="Sining in the forest" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/singing-in-the-forset.jpg"/> <img alt="force layout of keiko" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/keiko.png" />
 
-
-<br/>
-sort sub colorspace by hue and display as rect tiles.
+### sort sub colorspace by hue and display as rect tiles. [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/color-rects.html "Source")
 <img alt="Color Tiles" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/color-rects.png" />
 
 

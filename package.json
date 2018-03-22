@@ -1,7 +1,7 @@
 {
   "name": "percep-uni",
   "version": "1.0.0",
-  "description": "Generate",
+  "description": "Generate and refine perceptual uniform colors",
   "main": "dist/percep-uni.js",
   "module": "dist/percep-uni.mjs",
   "jsnext:main": "dist/percep-uni.mjs",
@@ -73,5 +73,5 @@
     "url": "https://github.com/BigFatDog/"
   },
   "license": "MIT",
-  "homepage": "http://www.vizart.org"
+  "homepage": "https://github.com/BigFatDog/percep-uni"
 }

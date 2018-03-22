@@ -9,7 +9,7 @@ Perceptual Uniformity. Generate and refine perceptual uniform colors. This libra
 Stackoverflow network. 5 disctinct colors are generated from ``Pimp`` preset. For each distinct color, sub colorspace has been generated containing 20 colors
 Each topic node is renderd with a color from sub-colorspace
 
-<img alt="Stackoverflow" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/stackoverflow.png"/>
+<img alt="Stackoverflow" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/stackoverflow.png" | width=300/>
 
 <br/>
 A force layout (Force Atlas 2 is used) of 10 colors as well as each sub colorspaces. 

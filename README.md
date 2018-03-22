@@ -4,23 +4,35 @@
 
 Perceptual Uniformity. Generate and refine perceptual uniform colors. This library can be used in browser as well as on node server.
 
-# Motivation
-When we need to use categorical colors in data visualizations, [ColorBrewer](http://colorbrewer2.org/) helps to generate distinct/categorical colors and ensures the even distribution.
-But what if we want to get sub color-space from each single color of the categorical color scheme?
+<br/>
+Stackoverflow network. 5 disctinct colors are generated from ``Pimp`` preset. For each distinct color, sub colorspace has been generated containing 20 colors
+Each topic node is renderd with a color from sub-colorspace
 
-It becomes an interesting idea to me as I draw a force graph with sigma.js or a ribbon chart to represent a network
-of employees of a company. Categorical colors are used to represent departments, i.e, groups of people. For each group, a set of sub-colorspace is generated to 
-represent employees' salary in a linear scale.
+<img alt="Stackoverflow" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/stackoverflow.png">
 
-This is possible with [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/). IWantHue is a standalone application other than a library, I studied IWantHue
-and made this library: percep-uni. 
+<br/>
+A force layout (Force Atlas 2 is used) of 10 colors as well as each sub colorspaces. 
 
-Thanks to [medialab](http://tools.medialab.sciences-po.fr) team for creating the fun yet powerful IWantHue
+<img alt="Force Layout" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/force-atlas-2.png">
+
+<br/>
+select colors with a preset and hcl selector
+
+<img alt="HCL selector" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/hcl-selector.png">
+
+<br/>
+A network of colors of [猪熊佳子 KEIKO INOKUMA](https://twitter.com/inokeko1)'s art: 
+<img alt="Sining in the forest" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/singing-in-the-forset.jpg">
+<img alt="force layout of keiko" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/keiko.png">
+
+<br/>
+sort sub colorspace by hue and display as rect tiles.
+<img alt="Color Tiles" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/color-rects.png">
+
 
 ## Tutorials and Concepts
 Please visit [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/)'s website for tutorial and concepts
 
-## Samples
 
 
 ## Typical Usage
@@ -28,7 +40,7 @@ Please visit [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/)'s websit
 import {
   reducePresetToHCLPalette,
   getSubColorSpace,
-  hclSelector,
+  hclPresetSelector,
   IceCube,
 } from 'precep-uni';
 
@@ -38,7 +50,7 @@ const quickHandsOn = () => {
 
   // use a hcl selector to get sub colorspace of the reduced color palette
   const subspaceSamples = getSubColorSpace(palette, c =>
-    hclSelector(IceCube, c.hcl)
+    hclPresetSelector(IceCube, c.hcl)
   );
   /**
      color palette is now:
@@ -97,7 +109,7 @@ npm run test:cover  // run tests and view coverage report
 * [getSubColorSpace](#_getSubColorSpace)
 * [selectColorSpace](#_selectColorSpace)
 * [sortPalette](#_sortPalette)
-* [hclSelector](#_hclSelector)
+* [hclPresetSelector](#_hclSelector)
 * [getColorDistance](#_getColorDistance)
 * [preset](#_preset)
 * [generate](#_generate)
@@ -170,7 +182,7 @@ available types are:
 * 'CMC'
 * 'Compromise'
 
-<a name="_hclSelector" href="#_hclSelector">#</a> <i>hclSelector</i>(<i>preset, hcl</i>) [<>](https://github.com/BigFatDog/percep-uni/blob/master/src/selector/hcl.js "Source")
+<a name="_hclSelector" href="#_hclSelector">#</a> <i>hclPresetSelector</i>(<i>preset, hcl</i>) [<>](https://github.com/BigFatDog/percep-uni/blob/master/src/selector/hcl.js "Source")
 <br/>
 HCL selector.  
 
@@ -220,6 +232,20 @@ Generates colors from color space. This is for internal use only for now
 
 ## Credits
 - [IWantHue by Medialab](http://tools.medialab.sciences-po.fr/iwanthue/) for the awesome application
+- [OxFord InteractiveVis](https://github.com/oxfordinternetinstitute/InteractiveVis) for original twitter and stackoverflow visualizations
+
+# Motivation
+When we need to use categorical colors in data visualizations, [ColorBrewer](http://colorbrewer2.org/) helps to generate distinct/categorical colors and ensures the even distribution.
+But what if we want to get sub color-space from each single color of the categorical color scheme?
+
+It becomes an interesting idea to me as I draw a force graph with sigma.js or a ribbon chart to represent a network
+of employees of a company. Categorical colors are used to represent departments, i.e, groups of people. For each group, a set of sub-colorspace is generated to 
+represent employees' salary in a linear scale.
+
+This is possible with [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/). IWantHue is a standalone application other than a library, I studied IWantHue
+and made this library: percep-uni. 
+
+Thanks to [medialab](http://tools.medialab.sciences-po.fr) team for creating the fun yet powerful IWantHue
 
 ## License
 

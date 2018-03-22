@@ -38,9 +38,9 @@
             return array;
         }
 
-        let palette = PercepUni.reducePresetToHCLPalette(10, PercepUni.FancyLight);
+        let palette = PercepUni.reducePresetToHCLPalette(10, PercepUni.Pastel);
         let subspaceSamples = PercepUni.getSubColorSpace(palette, function (c) {
-            return PercepUni.hclSelector(PercepUni.FancyLight, c.hcl);
+            return PercepUni.hclSelector(PercepUni.Pastel, c.hcl);
         });
 
         let forceStopTimers = [];

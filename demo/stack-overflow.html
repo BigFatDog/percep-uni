@@ -243,43 +243,44 @@
             });
             var totalColors = labels.length;
 
-            const _original20 = ['#528b6a'
-                ,'#91c095'
-                ,'#769b5d'
-                ,'#366e59'
-                ,'#60743d'
-                ,'#496f60'
-                ,'#a1cbae'
-                ,'#d1e0b0'
-                ,'#b9cb9b'
-                ,'#6ea779'
-                ,'#6c8f77'
-                ,'#b1d1cb'
-                ,'#a6c293'
-                ,'#89ad70'
-                ,'#8ab67c'
-                ,'#83a282'
-                ,'#a4d4a1'
-                ,'#c1e4b4'
-                ,'#3c9c6f'
-                ,'#6c744f'];
+            // const _original20 = ['#528b6a'
+            //     ,'#91c095'
+            //     ,'#769b5d'
+            //     ,'#366e59'
+            //     ,'#60743d'
+            //     ,'#496f60'
+            //     ,'#a1cbae'
+            //     ,'#d1e0b0'
+            //     ,'#b9cb9b'
+            //     ,'#6ea779'
+            //     ,'#6c8f77'
+            //     ,'#b1d1cb'
+            //     ,'#a6c293'
+            //     ,'#89ad70'
+            //     ,'#8ab67c'
+            //     ,'#83a282'
+            //     ,'#a4d4a1'
+            //     ,'#c1e4b4'
+            //     ,'#3c9c6f'
+            //     ,'#6c744f'];
+            //
+            // let palette = _original20.map(d=>{
+            //     let color = chroma(d);
+            //     return {
+            //         color: color,
+            //         hex: color.hex(),
+            //         hcl: color.hcl(),
+            //         lab: color.lab()
+            //     }
+            // });
+           let palette = PercepUni.reducePresetToHCLPalette(totalColors, PercepUni.Pimp);
 
-            let palette = _original20.map(d=>{
-                let color = chroma(d);
-                return {
-                    color: color,
-                    hex: color.hex(),
-                    hcl: color.hcl(),
-                    lab: color.lab()
-                }
-            });
-//            let palette = PercepUni.reduceToPalette(totalColors, PercepUni.Pimp);
             let subspaceSamples = PercepUni.getSubColorSpace(palette, function (c) {
                 return PercepUni.hclSelector(PercepUni.Pimp, c.hcl);
             });
 
-            function mapColor(d) {
-                var i = labels.indexOf(d.color);
+            function mapColor(color) {
+                var i = labels.indexOf(color);
                 var major = palette[i];
 
                 var group = subspaceSamples[major.hex];
@@ -288,8 +289,11 @@
 //                return major.hex;
             }
 
+
+
             s.graph.nodes().forEach(function (n) {
-                n.color = 'black'
+                console.log(n.attributes.type);
+                n.color = mapColor(n.color);
             });
 
             s.refresh();

@@ -42,6 +42,4 @@ const reducePresetToHCLPalette = (count, preset, _opt = {}) => {
   return reduceToPalette(count, selector, _opt);
 };
 
-export default reduceToPalette;
-
 export { reduceToPalette, reducePresetToHCLPalette };

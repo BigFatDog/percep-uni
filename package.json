@@ -1,6 +1,6 @@
 {
   "name": "percep-uni",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate and refine perceptual uniform colors",
   "main": "dist/percep-uni.js",
   "module": "dist/percep-uni.mjs",

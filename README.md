@@ -5,7 +5,7 @@ Generate and refine perceptual uniform colors. This library can be used in brows
 ## Samples
 
 ### Stackoverflow network. [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/stack-overflow.html "Source")
-5 disctinct colors are generated from ``Pimp`` preset. For each distinct color, sub colorspace has been generated containing 20 colors
+5 disctinct colors are generated from ``Purple`` preset. For each distinct color, sub colorspace has been generated containing 20 colors
 Each topic node is renderd with a color from sub-colorspace
 
 <img alt="Stackoverflow" height="300" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/stackoverflow.png"/>
@@ -197,7 +197,7 @@ HCL presets:
 * FancyDark
 * Tarnish
 * Pastel
-* Pimp
+* Purple
 * Intense
 * Fluo
 * RedRoses

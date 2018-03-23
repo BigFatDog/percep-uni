@@ -94,8 +94,8 @@ const Pastel = {
   lmax: 100,
 };
 
-const Pimp = {
-  name: 'Pimp',
+const Purple = {
+  name: 'Purple',
   dark: false,
   clbl: false,
   hmin: 0,
@@ -234,7 +234,7 @@ export {
   FancyDark,
   Tarnish,
   Pastel,
-  Pimp,
+  Purple,
   Intense,
   Fluo,
   RedRoses,

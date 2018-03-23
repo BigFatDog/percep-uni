@@ -5,8 +5,8 @@ Generate and refine perceptual uniform colors. This library can be used in brows
 ## Samples
 
 ### Stackoverflow network. [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/stack-overflow.html "Source")
-5 disctinct colors are generated from ``Purple`` preset. For each distinct color, sub colorspace has been generated containing 20 colors
-Each topic node is renderd with a color from sub-colorspace
+5 distinct colors are generated from ``Purple`` preset. For each distinct color, sub colorspace has been generated containing 20 colors. 
+Each topic node is rendered with a color from sub-colorspace
 
 <img alt="Stackoverflow" height="300" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/stackoverflow.png"/>
 
@@ -14,7 +14,7 @@ Each topic node is renderd with a color from sub-colorspace
 <img alt="Sining in the forest" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/singing-in-the-forset.jpg"/> <img alt="force layout of keiko" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/keiko.png" />
 
 ### Force Layout [<>](https://github.com/BigFatDog/percep-uni/blob/master/demo/force-layout.html "Source")
-A force layout (Force Atlas 2 is used) of 10 colors as well as each sub colorspaces. 
+A force layout (Force Atlas 2 is used) of 10 colors as well as sub colorspaces. 
 
 <img alt="Force Layout" height="300" src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/force-atlas-2.png"/>
 
@@ -225,17 +225,19 @@ Generates colors from color space. This is for internal use only for now
 ```
 
 # Motivation
-When we need to use categorical colors in data visualizations, [ColorBrewer](http://colorbrewer2.org/) helps to generate distinct/categorical colors and ensures the even distribution.
+When we need to use categorical colors in data visualizations, [ColorBrewer](http://colorbrewer2.org/) are usually used to generate distinct/categorical colors and ensures the even distribution.
 But what if we want to get sub color-space from each single color of the categorical color scheme?
 
-It becomes an interesting idea to me as I draw a force graph with sigma.js or a ribbon chart to represent a network
+It becomes an interesting idea to me as I draw a force graph with sigma.js to represent a network
 of employees of a company. Categorical colors are used to represent departments, i.e, groups of people. For each group, a set of sub-colorspace is generated to 
 represent employees' other attributes.
 
 This is possible with [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/). IWantHue is a standalone application but not a library, I studied IWantHue
 and made this library: percep-uni. 
 
-ALL core algorithms come from [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/)
+
+ALL core algorithms come from [IWantHue](http://tools.medialab.sciences-po.fr/iwanthue/).
+<br/>
 Thanks to [medialab](http://tools.medialab.sciences-po.fr) team for creating the fun yet powerful IWantHue
 
 ## Credits

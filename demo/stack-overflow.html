@@ -273,10 +273,10 @@
             //         lab: color.lab()
             //     }
             // });
-           let palette = PercepUni.reducePresetToHCLPalette(totalColors, PercepUni.Pimp);
+           let palette = PercepUni.reducePresetToHCLPalette(totalColors, PercepUni.Purple);
 
             let subspaceSamples = PercepUni.getSubColorSpace(palette, function (c) {
-                return PercepUni.hclSelector(PercepUni.Pimp, c.hcl);
+                return PercepUni.hclSelector(PercepUni.Purple, c.hcl);
             });
 
             function mapColor(color) {

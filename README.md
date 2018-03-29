@@ -191,12 +191,26 @@ get color distance between *lab1* and *lab2*, *type* could be one of:
 <a name="_preset" href="#_preset">#</a> <i>presets</i> [<>](https://github.com/BigFatDog/percep-uni/blob/master/src/preset/hcl.js "Source")
 HCL presets:
 * AllHcl
+<img alt="All HCL" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/preset/AllHcl.png"/> 
+
 * DefaultColorSpace
+<img alt="Default Color Space" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/preset/DefaultColorSpace.png"/> 
+
 * ColorBlind
+<img alt="Color Blind" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/preset/ColorBlind.png"/> 
+
 * FancyLight
+<img alt="Fancy Light" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/preset/fancy-light.png"/> 
+
 * FancyDark
+<img alt="Fancy Dark" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/preset/fancy-dark.png"/> 
+
 * Tarnish
+<img alt="Tarnish" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/preset/Tarnish.png"/> 
+
 * Pastel
+<img alt="Pastel" height="300"  src="https://github.com/BigFatDog/BigFatDog.github.io/blob/master/img/precep-uni/preset/Pastel.png"/> 
+
 * Purple
 * Intense
 * Fluo
